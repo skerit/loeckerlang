@@ -1,15 +1,32 @@
 package be.loeckerlang;
 
+import be.loeckerlang.compiler.ast.ASTBuilder;
+import be.loeckerlang.compiler.ast.nodes.FileNode;
+import be.loeckerlang.compiler.ast.visitors.ASTPrinter;
 import be.loeckerlang.compiler.tokens.Token;
 import be.loeckerlang.compiler.tokens.Tokenizer;
 
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+    public static void main(String[] args) throws IOException {
+        System.out.println("Loeckerlang test!");
 
-        String input = "namespace rocks.blackblock;\n" +
+        // Read the test.loeckerlang file from the resources/examples folder
+        URL file = Main.class.getResource("/examples/test.loeckerlang");
+
+        // Turn the URL into a Path instance
+        Path file_path = Paths.get(file.getPath());
+
+        // Read the contents of the file
+        String input = new String(Files.readAllBytes(file_path));
+
+        /*String input = "namespace rocks.blackblock;\n" +
                 "\n" +
                 "use oatscript.lang.Emitter;\n" +
                 "use oatscript.lang.On;\n" +
@@ -31,6 +48,7 @@ public class Main {
                 "        print(\"Saving!\");\n" +
                 "    }\n" +
                 "}\n";
+         */
 
         Tokenizer tokenizer = new Tokenizer(input);
         List<Token> tokens = tokenizer.tokenize();
@@ -38,5 +56,11 @@ public class Main {
         for (Token token : tokens) {
             System.out.println(token);
         }
+
+        ASTBuilder builder = new ASTBuilder(tokens);
+        FileNode node = builder.buildAST();
+
+        ASTPrinter printer = new ASTPrinter();
+        printer.visit(node);
     }
 }

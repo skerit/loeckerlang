@@ -12,7 +12,7 @@ import be.loeckerlang.compiler.tokens.Token;
  */
 public class NamespaceNode extends ASTNode {
 
-    private IdentifierPathNode path = null;
+    private QualifiedNameNode path = null;
 
     /**
      * Parse a NamespaceNode at the current position
@@ -21,9 +21,18 @@ public class NamespaceNode extends ASTNode {
      */
     @Override
     protected void parseContents(ASTBuilder builder) {
-        IdentifierPathNode path = new IdentifierPathNode();
+        QualifiedNameNode path = new QualifiedNameNode();
         path.parse(builder, this);
         this.path = path;
+    }
+
+    /**
+     * Get the path
+     *
+     * @since    0.1.0
+     */
+    public QualifiedNameNode getPath() {
+        return this.path;
     }
 
     /**

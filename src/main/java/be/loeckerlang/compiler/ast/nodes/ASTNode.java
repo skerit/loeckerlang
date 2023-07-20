@@ -5,6 +5,8 @@ import be.loeckerlang.compiler.ast.ASTVisitor;
 import be.loeckerlang.compiler.tokens.Token;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import java.util.Map;
+
 /**
  * The basic Node class
  *
@@ -60,6 +62,48 @@ public abstract class ASTNode {
     }
 
     /**
+     * Set the parent
+     *
+     * @since    0.1.0
+     */
+    protected void setParent(ASTNode parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * Get the parent
+     *
+     * @since    0.1.0
+     */
+    @Nullable
+    public ASTNode getParent() {
+        return this.parent;
+    }
+
+    /**
+     * Let them parse themselves optionally
+     *
+     * @since    0.1.0
+     */
+    protected boolean doOptionalParse(ASTBuilder builder, ASTNode parent) {
+
+        // Create a copy of the builder
+        ASTBuilder look_ahead = builder.copyForTesting();
+
+        // Parse the contents
+        this.parse(look_ahead, parent);
+
+        // If it failed, return false
+        if (look_ahead.hasErrors()) {
+            return false;
+        }
+
+        builder.adopt(look_ahead);
+
+        return true;
+    }
+
+    /**
      * Let them parse themselves
      *
      * @since    0.1.0
@@ -67,7 +111,7 @@ public abstract class ASTNode {
     protected void parse(ASTBuilder builder, ASTNode parent) {
 
         // Set the parent
-        this.parent = parent;
+        this.setParent(parent);
 
         // Set the first token
         this.setFirstToken(builder.peekCurrent());
@@ -134,8 +178,27 @@ public abstract class ASTNode {
      */
     protected abstract void parseContents(ASTBuilder builder);
 
+    /**
+     * Apply the visitor
+     *
+     * @since    0.1.0
+     */
     public void accept(ASTVisitor visitor) {
-
+        visitor.visit(this);
     }
 
+    /**
+     * Return a string representation of this node
+     *
+     * @since    0.1.0
+     */
+    @Override
+    public String toString() {
+
+        String result = this.getClass().getSimpleName();
+
+        result += "{first_token=" + this.first_token + ", last_token=" + this.last_token + "}";
+
+        return result;
+    }
 }

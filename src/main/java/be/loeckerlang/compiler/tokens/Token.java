@@ -8,6 +8,12 @@ package be.loeckerlang.compiler.tokens;
  */
 public class Token {
 
+    // The empty token
+    public static final Token EMPTY = new Token(Type.EMPTY, "", -1, -1);
+
+    // The EOF token
+    public static final Token EOF = new Token(Type.EOF, "", -1, -1);
+
     // The type of token
     private Type type;
 
@@ -66,7 +72,7 @@ public class Token {
      */
     @Override
     public String toString() {
-        return "Token<" + this.type + ">{line=" + this.line + ", column=" + this.column + ", lexeme=" + this.lexeme + "}";
+        return "Token<" + this.type + ">{line=" + this.line + ", column=" + this.column + ", lexeme='" + this.lexeme + "'}";
     }
 
     /**
@@ -82,12 +88,14 @@ public class Token {
         INHERITS,
         VAR,
         ABSTRACT,
+        COMMA,
         IF,
         PERIOD,
         ELSE,
         RETURN,
         TRUE,
         FALSE,
+        CIRCUMFLEX,
         NEW,
         VOID,
         PROTECTED,
@@ -102,13 +110,19 @@ public class Token {
         RIGHT_BRACE,
         LEFT_PAREN,
         RIGHT_PAREN,
+        PLUS,
+        MINUS,
+        STAR,
         SEMICOLON,
+        COLON,
         SLASH,
         EQUALS,
         DOUBLE_EQUALS,
         BOOLEAN_LITERAL,
         USE,
         STATIC,
-        UNKNOWN
+        UNKNOWN,
+        EMPTY,
+        EOF
     }
 }

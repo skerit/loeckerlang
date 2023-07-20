@@ -1,0 +1,8 @@
+namespace rocks.blackblock;
+
+@SomeDecorator()
+is class MyTestClass;
+
+void main() {
+	System.out.println("Hello World!");
+}

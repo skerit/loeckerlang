@@ -87,6 +87,24 @@ public class Tokenizer {
             } else if (currentChar == ';') {
                 addToken(Token.Type.SEMICOLON, ";");
                 position++;
+            } else if (currentChar == ':') {
+                addToken(Token.Type.COLON, ":");
+                position++;
+            } else if (currentChar == ',') {
+                addToken(Token.Type.COMMA, ",");
+                position++;
+            } else if (currentChar == '+') {
+                addToken(Token.Type.PLUS, "+");
+                position++;
+            } else if (currentChar == '-') {
+                addToken(Token.Type.MINUS, "-");
+                position++;
+            } else if (currentChar == '*') {
+                addToken(Token.Type.STAR, "*");
+                position++;
+            } else if (currentChar == '^') {
+                addToken(Token.Type.CIRCUMFLEX, "^");
+                position++;
             } else if (currentChar == '=') {
                 if (position + 1 < input.length() && input.charAt(position + 1) == '=') {
                     addToken(Token.Type.DOUBLE_EQUALS, "==");
@@ -221,6 +239,10 @@ public class Tokenizer {
                 return Token.Type.PRIVATE;
             case "use":
                 return Token.Type.USE;
+            case "public":
+                return Token.Type.PUBLIC;
+            case "final":
+                return Token.Type.FINAL;
             case "static":
                 return Token.Type.STATIC;
             default:

@@ -1,0 +1,17 @@
+namespace rocks.blackblock;
+
+class Test {
+    public void doSomething() {
+        Model profile = new Profile();
+
+        // This is asynchronous, but asynchronous things automatically "await" in loeckerlang
+        DocumentList<Profile> profiles = profile.findAll();
+
+        // This is the same thing, but now it doesn't automatically wait
+        Promise<DocumentList<Profile>> profilesPromise = defer profile.findAll();
+
+        // Later we can await it
+        DocumentList<Profile> new_profiles = await profilesPromise;
+
+    }
+}

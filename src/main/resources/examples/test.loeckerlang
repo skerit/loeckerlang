@@ -1,0 +1,12 @@
+namespace rocks.blackblock;
+
+use loeckerlang.String;
+
+class Test {
+
+    public String name = "bla";
+
+    public String Test() {
+        String s = "test";
+    }
+}

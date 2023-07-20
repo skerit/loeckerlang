@@ -63,6 +63,7 @@ public abstract class GroupOfTokensNode extends ASTNode {
                 builder.consume();
                 this.matching_tokens.add(token);
             } else {
+                System.out.println("Not allowed: " + type + " - " + token);
                 break;
             }
         }

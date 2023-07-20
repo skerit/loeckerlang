@@ -2,6 +2,7 @@ package be.loeckerlang.compiler.ast.nodes;
 
 import be.loeckerlang.compiler.ast.ASTBuilder;
 import be.loeckerlang.compiler.tokens.Token;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.Collection;
 import java.util.List;
@@ -100,5 +101,17 @@ public class ClassModifiersNode extends ModifiersNode {
      */
     public boolean isFinal() {
         return this.hasToken(Token.Type.FINAL);
+    }
+
+    /**
+     * Parse optional decorators
+     *
+     * @since    0.1.0
+     */
+    @NonNull
+    public static ClassModifiersNode parseOptional(ASTBuilder builder, ASTNode parent) {
+        ClassModifiersNode result = new ClassModifiersNode();
+        result.parse(builder, parent);
+        return result;
     }
 }
