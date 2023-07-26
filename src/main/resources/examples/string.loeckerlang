@@ -1,0 +1,15 @@
+namespace loeckerlang;
+
+use loeckerlang.Integer;
+
+public immutable class String {
+
+    public builtin String(builtin value) {
+        target js sync `this.raw = value`;
+    }
+
+    public builtin memoized Integer length() {
+        target js sync `return createInt(this.raw.length)`;
+    }
+
+}

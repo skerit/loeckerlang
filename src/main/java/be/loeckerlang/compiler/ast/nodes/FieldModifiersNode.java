@@ -8,21 +8,21 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * All the modifiers a class can have
+ * Modifiers used by fields
  *
  * @author   Jelle De Loecker   <jelle@elevenways.be>
  * @since    0.1.0
  */
-public class ClassModifiersNode extends BaseModifiersNode {
+public class FieldModifiersNode extends BaseModifiersNode {
 
-    private static final List<Token.Type> CLASS_MODIFIER_TOKENS = List.of(
-        Token.Type.PRIVATE,
-        Token.Type.PROTECTED,
-        Token.Type.PUBLIC,
-        Token.Type.ABSTRACT,
-        Token.Type.FINAL,
-        Token.Type.STATIC,
-        Token.Type.IMMUTABLE
+    private static final List<Token.Type> FIELD_MODIFIER_TOKENS = List.of(
+            Token.Type.PRIVATE,
+            Token.Type.PROTECTED,
+            Token.Type.PUBLIC,
+            Token.Type.FINAL,
+            Token.Type.STATIC,
+            Token.Type.IMMUTABLE,
+            Token.Type.BUILTIN
     );
 
     /**
@@ -31,7 +31,7 @@ public class ClassModifiersNode extends BaseModifiersNode {
      * @since    0.1.0
      */
     public Collection<Token.Type> getAllowedTokens() {
-        return CLASS_MODIFIER_TOKENS;
+        return FIELD_MODIFIER_TOKENS;
     }
 
     /**
@@ -40,8 +40,8 @@ public class ClassModifiersNode extends BaseModifiersNode {
      * @since    0.1.0
      */
     @NonNull
-    public static ClassModifiersNode parseOptional(ASTBuilder builder, ASTNode parent) {
-        ClassModifiersNode result = new ClassModifiersNode();
+    public static FieldModifiersNode parseOptional(ASTBuilder builder, ASTNode parent) {
+        FieldModifiersNode result = new FieldModifiersNode();
         result.parse(builder, parent);
         return result;
     }

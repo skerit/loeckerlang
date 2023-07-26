@@ -1,5 +1,8 @@
 package be.loeckerlang.compiler.intermediate.symbols;
 
+import be.loeckerlang.compiler.intermediate.Symbol;
+import be.loeckerlang.compiler.intermediate.tables.SymbolTable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,5 +15,15 @@ import java.util.Map;
 public class MethodSignatureGroup extends Symbol {
 
     private Map<MethodSignature, Method> methods = new HashMap<>();
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public SymbolTable getParentScope() {
+        return null;
+    }
 
 }

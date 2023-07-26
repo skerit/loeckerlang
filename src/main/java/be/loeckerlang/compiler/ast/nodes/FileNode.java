@@ -23,6 +23,9 @@ public class FileNode extends ASTNode {
     // The class
     private ClassNode class_node = null;
 
+    // The path to the file
+    private String file_path = null;
+
     /**
      * Let them parse themselves
      *
@@ -76,5 +79,23 @@ public class FileNode extends ASTNode {
      */
     public ClassNode getClassNode() {
         return this.class_node;
+    }
+
+    /**
+     * Set the file path
+     *
+     * @since    0.1.0
+     */
+    public void setFilePath(String path) {
+        this.file_path = path;
+    }
+
+    /**
+     * Get the full path of the file
+     *
+     * @since    0.1.0
+     */
+    public String getFilePath() {
+        return this.file_path;
     }
 }

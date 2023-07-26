@@ -10,7 +10,7 @@ import be.loeckerlang.compiler.tokens.Token;
  * @author   Jelle De Loecker   <jelle@elevenways.be>
  * @since    0.1.0
  */
-public class FieldDeclarationNode extends ClassMemberNode {
+public class FieldDeclarationNode extends ClassMemberNode<FieldModifiersNode> {
 
     protected ExpressionNode initializer = null;
 
@@ -21,6 +21,16 @@ public class FieldDeclarationNode extends ClassMemberNode {
      */
     protected Token.Type shouldEndWith() {
         return Token.Type.SEMICOLON;
+    }
+
+    /**
+     * Parse the decorators
+     *
+     * @since    0.1.0
+     */
+    @Override
+    protected FieldModifiersNode parseModifiers(ASTBuilder builder) {
+        return FieldModifiersNode.parseOptional(builder, this);
     }
 
     /**
@@ -35,12 +45,17 @@ public class FieldDeclarationNode extends ClassMemberNode {
 
         ASTNode parent = this;
 
-        this.type = QualifiedNameNode.parseOptional(builder, parent);
+        // Builtin properties have no type, but also can't be used by Loeckerlang code
+        if (!this.getModifiers().isBuiltin()) {
+            this.type = QualifiedNameNode.parseOptional(builder, parent);
 
-        if (this.type == null) {
-            builder.reportSyntaxError("Expected type");
-            return;
+            if (this.type == null) {
+                builder.reportSyntaxError("Expected type");
+                return;
+            }
         }
+
+        System.out.println("FieldDeclarationNode.parseContents: " + this.type);
 
         this.name = SimpleNameNode.parseOptional(builder, parent);
 
@@ -68,8 +83,6 @@ public class FieldDeclarationNode extends ClassMemberNode {
         FieldDeclarationNode result = this;
         result.type = type;
         result.initializer = value;
-
-        System.out.println("Created field: " + result);
     }
 
     /**

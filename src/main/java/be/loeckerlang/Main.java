@@ -3,6 +3,10 @@ package be.loeckerlang;
 import be.loeckerlang.compiler.ast.ASTBuilder;
 import be.loeckerlang.compiler.ast.nodes.FileNode;
 import be.loeckerlang.compiler.ast.visitors.ASTPrinter;
+import be.loeckerlang.compiler.codegen.JavaScriptCodeGenerator;
+import be.loeckerlang.compiler.intermediate.tables.GlobalSymbolTable;
+import be.loeckerlang.compiler.intermediate.tables.SymbolTable;
+import be.loeckerlang.compiler.intermediate.tables.SymbolTableBuilder;
 import be.loeckerlang.compiler.tokens.Token;
 import be.loeckerlang.compiler.tokens.Tokenizer;
 
@@ -18,7 +22,7 @@ public class Main {
         System.out.println("Loeckerlang test!");
 
         // Read the test.loeckerlang file from the resources/examples folder
-        URL file = Main.class.getResource("/examples/test.loeckerlang");
+        URL file = Main.class.getResource("/examples/integer.loeckerlang");
 
         // Turn the URL into a Path instance
         Path file_path = Paths.get(file.getPath());
@@ -59,8 +63,19 @@ public class Main {
 
         ASTBuilder builder = new ASTBuilder(tokens);
         FileNode node = builder.buildAST();
+        node.setFilePath(file_path.toString());
 
         ASTPrinter printer = new ASTPrinter();
         printer.visit(node);
+
+        GlobalSymbolTable global = new GlobalSymbolTable();
+        SymbolTableBuilder table_builder = new SymbolTableBuilder(global);
+        table_builder.visit(node);
+
+        JavaScriptCodeGenerator generator = new JavaScriptCodeGenerator(global);
+        String code = generator.generateCode();
+
+        System.out.println(code);
+
     }
 }

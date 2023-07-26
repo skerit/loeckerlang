@@ -10,7 +10,7 @@ import be.loeckerlang.compiler.tokens.Token;
  * @author   Jelle De Loecker   <jelle@elevenways.be>
  * @since    0.1.0
  */
-public class MethodDeclarationNode extends ClassMemberNode {
+public class MethodDeclarationNode extends ClassMemberNode<FunctionModifiersNode> {
 
     protected ParametersNode parameters = null;
     protected BlockNode body = null;
@@ -40,6 +40,16 @@ public class MethodDeclarationNode extends ClassMemberNode {
      */
     public BlockNode getBody() {
         return this.body;
+    }
+
+    /**
+     * Parse the decorators
+     *
+     * @since    0.1.0
+     */
+    @Override
+    protected FunctionModifiersNode parseModifiers(ASTBuilder builder) {
+        return FunctionModifiersNode.parseOptional(builder, this);
     }
 
     /**

@@ -68,6 +68,20 @@ public class QualifiedNameNode extends ExpressionNode {
     }
 
     /**
+     * Get the path as a string
+     *
+     * @since    0.1.0
+     */
+    public String getPathAsString() {
+
+        if (this.qualifier == null) {
+            return this.name.getName();
+        }
+
+        return this.qualifier.getPathAsString() + "." + this.name.getName();
+    }
+
+    /**
      * Pop off the last identifier
      *
      * @since    0.1.0

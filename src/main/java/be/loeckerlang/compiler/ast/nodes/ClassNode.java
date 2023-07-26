@@ -27,6 +27,9 @@ public class ClassNode extends ASTNode {
     // Method declarations
     private ListOfNodes<MethodDeclarationNode> methods;
 
+    // Ancestors
+    private ClassAncestors ancestors = null;
+
     /**
      * Create a new instance
      *
@@ -54,6 +57,12 @@ public class ClassNode extends ASTNode {
         this.name = new SimpleNameNode();
         this.name.parse(builder, this);
 
+        if (builder.consume(Token.Type.INHERITS)) {
+            // Consume ancestors!
+            this.ancestors = new ClassAncestors();
+            this.ancestors.parse(builder, this);
+        }
+
         if (!builder.consume(Token.Type.LEFT_BRACE)) {
             builder.reportSyntaxError("Expected opening brace");
             return;
@@ -73,10 +82,7 @@ public class ClassNode extends ASTNode {
 
             MethodDeclarationNode method = MethodDeclarationNode.parseOptional(builder, this);
 
-            System.out.println("Method: " + method);
-
             if (method != null) {
-                System.out.println("Adding method, current token: " + builder.peekCurrent());
                 this.methods.add(method);
                 continue;
             }

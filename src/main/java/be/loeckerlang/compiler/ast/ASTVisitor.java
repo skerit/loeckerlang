@@ -50,17 +50,21 @@ public interface ASTVisitor {
         }
     }
 
-    void visit(BlockNode node);
-    void visit(ParameterNode node);
-    void visit(ParametersNode node);
-    void visit(MethodDeclarationNode node);
-    void visit(LiteralNode node);
-    void visit(FieldDeclarationNode node);
-    void visit(ClassModifiersNode node);
-    void visit(ClassNode node);
-    void visit(SimpleNameNode node);
-    void visit(QualifiedNameNode node);
     void visit(FileNode node);
     void visit(NamespaceNode node);
     void visit(UseNode node);
+
+    void visit(ClassNode node);
+    void visit(ClassModifiersNode node);
+
+    void visit(FieldDeclarationNode node);
+    void visit(MethodDeclarationNode node);
+    void visit(BlockNode node);
+
+    void visit(ParameterNode node);
+    void visit(ParametersNode node);
+    void visit(LiteralNode node);
+
+    void visit(SimpleNameNode node);
+    void visit(QualifiedNameNode node);
 }

@@ -1,6 +1,8 @@
 package be.loeckerlang.compiler.ast.nodes;
 
 import be.loeckerlang.compiler.ast.ASTBuilder;
+import be.loeckerlang.compiler.intermediate.tables.FileSymbolTable;
+import be.loeckerlang.compiler.intermediate.tables.SymbolTable;
 import be.loeckerlang.compiler.tokens.Token;
 
 /**
@@ -24,6 +26,15 @@ public class NamespaceNode extends ASTNode {
         QualifiedNameNode path = new QualifiedNameNode();
         path.parse(builder, this);
         this.path = path;
+    }
+
+    /**
+     * Get the path as a string
+     *
+     * @since    0.1.0
+     */
+    public String getPathAsString() {
+        return this.path.getPathAsString();
     }
 
     /**

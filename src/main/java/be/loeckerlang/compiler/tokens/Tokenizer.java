@@ -119,6 +119,8 @@ public class Tokenizer {
                 consumeNumber();
             } else if (currentChar == '"') {
                 consumeStringLiteral();
+            } else if (currentChar == '`') {
+                consumeStringLiteralBackticks();
             } else {
                 consumeUnknown();
             }
@@ -237,8 +239,22 @@ public class Tokenizer {
                 return Token.Type.PROTECTED;
             case "private":
                 return Token.Type.PRIVATE;
+            case "immutable":
+                return Token.Type.IMMUTABLE;
+            case "memoized":
+                return Token.Type.MEMOIZED;
+            case "builtin":
+                return Token.Type.BUILTIN;
             case "use":
                 return Token.Type.USE;
+            case "defer":
+                return Token.Type.DEFER;
+            case "target":
+                return Token.Type.TARGET;
+            case "await":
+                return Token.Type.AWAIT;
+            case "async":
+                return Token.Type.ASYNC;
             case "public":
                 return Token.Type.PUBLIC;
             case "final":
@@ -318,6 +334,60 @@ public class Tokenizer {
         }
 
         if (position < input.length() && input.charAt(position) == '"') {
+            position++;
+            addToken(Token.Type.STRING_LITERAL, lexemeBuilder.toString());
+        }
+    }
+
+    private void consumeStringLiteralBackticks() {
+        int start = position;
+        position++;
+
+        StringBuilder lexemeBuilder = new StringBuilder();
+
+        while (position < input.length() && input.charAt(position) != '`') {
+            char currentChar = input.charAt(position);
+            if (currentChar == '\\') {
+                position++;
+                if (position < input.length()) {
+                    char escapedChar = input.charAt(position);
+                    switch (escapedChar) {
+                        case 'n':
+                            lexemeBuilder.append('\n');
+                            break;
+                        case 't':
+                            lexemeBuilder.append('\t');
+                            break;
+                        case 'r':
+                            lexemeBuilder.append('\r');
+                            break;
+                        case 'b':
+                            lexemeBuilder.append('\b');
+                            break;
+                        case 'f':
+                            lexemeBuilder.append('\f');
+                            break;
+                        case '"':
+                            lexemeBuilder.append('"');
+                            break;
+                        case '\'':
+                            lexemeBuilder.append('\'');
+                            break;
+                        case '\\':
+                            lexemeBuilder.append('\\');
+                            break;
+                        default:
+                            lexemeBuilder.append(escapedChar);
+                    }
+                }
+            } else {
+                lexemeBuilder.append(currentChar);
+            }
+
+            position++;
+        }
+
+        if (position < input.length() && input.charAt(position) == '`') {
             position++;
             addToken(Token.Type.STRING_LITERAL, lexemeBuilder.toString());
         }

@@ -1,0 +1,7 @@
+namespace loeckerlang;
+
+use loeckerlang.Integer;
+
+public abstract class Number {
+    public abstract Integer toInteger();
+}

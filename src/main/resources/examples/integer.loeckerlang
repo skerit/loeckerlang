@@ -1,0 +1,12 @@
+namespace loeckerlang;
+
+use loeckerlang.Number;
+
+public immutable class Integer inherits Number {
+
+    builtin raw;
+
+    public builtin Integer toInteger() {
+        target js sync `return createInteger(this.raw)`;
+    }
+}

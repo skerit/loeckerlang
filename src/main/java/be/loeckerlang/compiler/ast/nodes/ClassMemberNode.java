@@ -8,10 +8,10 @@ import be.loeckerlang.compiler.ast.ASTBuilder;
  * @author   Jelle De Loecker   <jelle@elevenways.be>
  * @since    0.1.0
  */
-public abstract class ClassMemberNode extends ASTNode {
+public abstract class ClassMemberNode<T extends ModifiersNode> extends ASTNode {
 
     protected ListOfNodes<DecoratorNode> decorators = null;
-    protected ClassModifiersNode modifiers = null;
+    protected T modifiers = null;
     protected QualifiedNameNode type = null;
     protected SimpleNameNode name = null;
 
@@ -23,8 +23,15 @@ public abstract class ClassMemberNode extends ASTNode {
     @Override
     protected void parseContents(ASTBuilder builder) {
         this.decorators = DecoratorNode.parseOptionalList(builder, this);
-        this.modifiers = ClassModifiersNode.parseOptional(builder, this);
+        this.modifiers = this.parseModifiers(builder);
     }
+
+    /**
+     * Parse the modifiers
+     *
+     * @since    0.1.0
+     */
+    protected abstract T parseModifiers(ASTBuilder builder);
 
     /**
      * Get the decorators
@@ -40,7 +47,7 @@ public abstract class ClassMemberNode extends ASTNode {
      *
      * @since    0.1.0
      */
-    public ClassModifiersNode getModifiers() {
+    public T getModifiers() {
         return this.modifiers;
     }
 

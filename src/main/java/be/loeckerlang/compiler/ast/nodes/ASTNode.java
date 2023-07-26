@@ -188,6 +188,15 @@ public abstract class ASTNode {
     }
 
     /**
+     * Report a compilation error
+     *
+     * @since    0.1.0
+     */
+    public void reportCompilationError(String message) {
+        throw new RuntimeException("Compilation error: " + message);
+    }
+
+    /**
      * Return a string representation of this node
      *
      * @since    0.1.0
