@@ -35,6 +35,15 @@ public abstract class CodeGenerator {
     }
 
     /**
+     * Get a unique id number
+     *
+     * @since    0.1.0
+     */
+    protected int getUniqueId() {
+        return this.symbol_id++;
+    }
+
+    /**
      * Get the name to use for a symbol in the compiled code.
      *
      * @since    0.1.0

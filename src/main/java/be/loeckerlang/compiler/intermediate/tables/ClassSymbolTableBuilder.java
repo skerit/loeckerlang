@@ -1,6 +1,7 @@
 package be.loeckerlang.compiler.intermediate.tables;
 
 import be.loeckerlang.compiler.ast.nodes.FieldDeclarationNode;
+import be.loeckerlang.compiler.ast.nodes.MethodDeclarationNode;
 
 /**
  * The SymbolTable builder
@@ -27,4 +28,13 @@ public class ClassSymbolTableBuilder extends SymbolTableBuilder {
         this.class_table.registerProperty(node);
     }
 
+    /**
+     * Process a method declaration (in the current class)
+     *
+     * @since 0.1.0
+     */
+    @Override
+    public void visit(MethodDeclarationNode node) {
+        this.class_table.registerMethod(node);
+    }
 }

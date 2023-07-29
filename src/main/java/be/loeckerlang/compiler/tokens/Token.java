@@ -117,6 +117,8 @@ public class Token {
         RIGHT_BRACE,
         LEFT_PAREN,
         RIGHT_PAREN,
+        LESS_THAN,
+        GREATER_THAN,
         PLUS,
         MINUS,
         STAR,

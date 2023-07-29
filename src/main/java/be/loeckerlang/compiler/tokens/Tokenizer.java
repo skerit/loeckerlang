@@ -261,6 +261,10 @@ public class Tokenizer {
                 return Token.Type.FINAL;
             case "static":
                 return Token.Type.STATIC;
+            case ">":
+                return Token.Type.GREATER_THAN;
+            case "<":
+                return Token.Type.LESS_THAN;
             default:
                 return Token.Type.IDENTIFIER;
         }

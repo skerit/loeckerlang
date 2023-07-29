@@ -80,6 +80,23 @@ public class SymbolTable extends Symbol {
     }
 
     /**
+     * Get a variable by name
+     *
+     * @since    0.1.0
+     */
+    @Nullable
+    public Symbol getVariable(String name) {
+
+        Symbol result = this.variables.get(name);
+
+        if (result == null && this.parent != null) {
+            result = this.parent.getVariable(name);
+        }
+
+        return result;
+    }
+
+    /**
      * Get the namespace this is in
      *
      * @since    0.1.0

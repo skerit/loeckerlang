@@ -11,7 +11,7 @@ import be.loeckerlang.compiler.tokens.Token;
  */
 public class ParameterNode extends ASTNode {
 
-    protected QualifiedNameNode type = null;
+    protected SingleTypeNode type = null;
     protected SimpleNameNode name = null;
 
     /**
@@ -19,7 +19,7 @@ public class ParameterNode extends ASTNode {
      *
      * @since    0.1.0
      */
-    public QualifiedNameNode getType() {
+    public SingleTypeNode getType() {
         return this.type;
     }
 
@@ -40,7 +40,7 @@ public class ParameterNode extends ASTNode {
     @Override
     protected void parseContents(ASTBuilder builder) {
 
-        this.type = QualifiedNameNode.parseOptional(builder, this);
+        this.type = SingleTypeNode.parseOptional(builder, this);
 
         if (this.type == null) {
             builder.reportSyntaxError("Expected type");

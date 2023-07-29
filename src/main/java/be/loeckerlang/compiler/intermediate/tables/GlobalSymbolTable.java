@@ -1,5 +1,7 @@
 package be.loeckerlang.compiler.intermediate.tables;
 
+import be.loeckerlang.compiler.codegen.CodeGenerator;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +15,26 @@ import java.util.Map;
 public class GlobalSymbolTable extends SymbolTable {
 
     private final Map<String, NamespaceSymbolTable> namespaces = new HashMap<>();
+    private CodeGenerator compiler = null;
+
+    /**
+     * Initialize the instance
+     *
+     * @since    0.1.0
+     */
+    public GlobalSymbolTable() {
+        super(null);
+    }
+
+    /**
+     * Initialize the instance
+     *
+     * @since    0.1.0
+     */
+    public GlobalSymbolTable(CodeGenerator compiler) {
+        super(null);
+        this.compiler = compiler;
+    }
 
     /**
      * Get the root/global table

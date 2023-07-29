@@ -12,7 +12,7 @@ import be.loeckerlang.compiler.tokens.Token;
  */
 public class VariableDeclarationStatementNode extends StatementNode {
 
-    protected QualifiedNameNode type = null;
+    protected SingleTypeNode type = null;
     protected SimpleNameNode name = null;
     protected ExpressionNode initializer = null;
 
@@ -24,7 +24,7 @@ public class VariableDeclarationStatementNode extends StatementNode {
     @Override
     protected void parseContents(ASTBuilder builder) {
 
-        this.type = QualifiedNameNode.parseOptional(builder, this);
+        this.type = SingleTypeNode.parseOptional(builder, this);
 
         if (this.type == null) {
             builder.reportSyntaxError("Expected type");
