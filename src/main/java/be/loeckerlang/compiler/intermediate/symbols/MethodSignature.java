@@ -5,9 +5,7 @@ import be.loeckerlang.compiler.ast.nodes.ParametersNode;
 import be.loeckerlang.compiler.intermediate.tables.SymbolTable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents a signature of a method.
@@ -45,7 +43,7 @@ public class MethodSignature {
         parameters_node.getParameters().forEach(parameter_node -> {
 
             // @TODO: needs to be the resolved path eventually
-            String type_path = parameter_node.getType().getPathAsString();
+            String type_path = parameter_node.getType().getOriginalCode();
             String parameter_name = parameter_node.getName().getName();
 
             this.types.add(type_path);

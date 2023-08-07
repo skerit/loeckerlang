@@ -60,6 +60,24 @@ public class SingleTypeNode extends ASTNode {
     }
 
     /**
+     * Get the string representation
+     *
+     * @since    0.1.0
+     */
+    public String getOriginalCode() {
+
+        StringBuilder result = new StringBuilder();
+
+        result.append(this.type_name.getPathAsString());
+
+        if (this.generics != null) {
+            result.append(this.generics.getOriginalCode());
+        }
+
+        return result.toString();
+    }
+
+    /**
      * Parse an optional
      *
      * @since    0.1.0

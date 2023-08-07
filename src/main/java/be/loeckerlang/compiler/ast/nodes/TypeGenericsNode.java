@@ -34,6 +34,30 @@ public class TypeGenericsNode extends ASTNode {
     }
 
     /**
+     * Get the string representation
+     *
+     * @since    0.1.0
+     */
+    public String getOriginalCode() {
+
+        StringBuilder result = new StringBuilder();
+
+        result.append('<');
+
+        for (int i = 0; i < this.types.size(); i++) {
+            if (i > 0) {
+                result.append(", ");
+            }
+
+            result.append(this.types.get(i).getOriginalCode());
+        }
+
+        result.append('>');
+
+        return result.toString();
+    }
+
+    /**
      * Should this start with a specific token?
      *
      * @since    0.1.0

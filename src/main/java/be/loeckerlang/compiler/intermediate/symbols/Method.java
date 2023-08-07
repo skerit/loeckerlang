@@ -5,6 +5,7 @@ import be.loeckerlang.compiler.ast.nodes.FunctionModifiersNode;
 import be.loeckerlang.compiler.ast.nodes.MethodDeclarationNode;
 import be.loeckerlang.compiler.ast.nodes.ModifiersNode;
 import be.loeckerlang.compiler.intermediate.HasModifiers;
+import be.loeckerlang.compiler.intermediate.tables.Block;
 import be.loeckerlang.compiler.intermediate.tables.ClassSymbolTable;
 import be.loeckerlang.compiler.intermediate.tables.SymbolTable;
 
@@ -21,6 +22,7 @@ public class Method extends SymbolTable implements HasModifiers {
     private final ClassSymbolTable class_table;
 
     private FunctionModifiersNode modifiers;
+    private Block body = null;
 
     public Method(MethodSignatureGroup signature_group, MethodSignature signature) {
         super(signature_group.getParentScope());
@@ -57,9 +59,7 @@ public class Method extends SymbolTable implements HasModifiers {
     public void processDeclaration(MethodDeclarationNode node) {
 
         this.modifiers = node.getModifiers();
-
-        BlockNode body = node.getBody();
-
+        this.body = Block.fromNode(this, node.getBody());
     }
 
     /**

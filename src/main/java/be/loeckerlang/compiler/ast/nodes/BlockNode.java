@@ -3,6 +3,8 @@ package be.loeckerlang.compiler.ast.nodes;
 import be.loeckerlang.compiler.ast.ASTBuilder;
 import be.loeckerlang.compiler.tokens.Token;
 
+import java.util.List;
+
 /**
  * A block of code
  *
@@ -91,6 +93,24 @@ public class BlockNode extends ASTNode {
             this.builtin_targets.add(target);
 
         } while (!builder.currentTokensAre(Token.Type.RIGHT_BRACE));
+    }
+
+    /**
+     * Does this have built-in targets?
+     *
+     * @since    0.1.0
+     */
+    public boolean hasBuiltinTargets() {
+        return this.builtin_targets != null && !this.builtin_targets.isEmpty();
+    }
+
+    /**
+     * Get the built-in targets as a list
+     *
+     * @since    0.1.0
+     */
+    public List<BuiltinTargetNode> getBuiltinTargets() {
+        return this.builtin_targets.getNodes();
     }
 
     /**
